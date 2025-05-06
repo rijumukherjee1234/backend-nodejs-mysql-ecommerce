@@ -4,6 +4,9 @@ const PORT = 3000;
 const connection = require("./src/config/db");
 const authRoutes = require('./src/routes/authroutes'); 
 const masterroutes = require('./src/routes/masterroutes.js'); 
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 require('dotenv').config();
 
 app.use(express.json());

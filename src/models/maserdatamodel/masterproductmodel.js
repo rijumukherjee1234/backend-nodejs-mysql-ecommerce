@@ -8,12 +8,12 @@ const productmodel = {
     PRODUCT_SUB_CATEGORY_SYS_ID,
     PRODUCT_NAME,
     PRODUCT_DESCRIPTION,
-    PRODUCT_IMAGE,
+  
     CREATED_BY,
     callback
   ) => {
     if (ITEM == "ADD") {
-      const query = `INSERT INTO MASTER_PRODUCT_TABLE (PRODUCT_CATEGORY_SYS_ID,PRODUCT_SUB_CATEGORY_SYS_ID,PRODUCT_NAME,PRODUCT_DESCRIPTION,PRODUCT_IMAGE,CREATED_BY) VALUES (?,?,?,?,?,?)`;
+      const query = `INSERT INTO MASTER_PRODUCT_TABLE (PRODUCT_CATEGORY_SYS_ID,PRODUCT_SUB_CATEGORY_SYS_ID,PRODUCT_NAME,PRODUCT_DESCRIPTION,CREATED_BY) VALUES (?,?,?,?,?)`;
       connection.query(
         query,
         [
@@ -21,7 +21,7 @@ const productmodel = {
           PRODUCT_SUB_CATEGORY_SYS_ID,
           PRODUCT_NAME,
           PRODUCT_DESCRIPTION,
-          PRODUCT_IMAGE,
+       
           CREATED_BY,
         ],
         (err, results) => {
@@ -32,6 +32,29 @@ const productmodel = {
         }
       );
     }
+  },
+  addimage: (
+   data,image,
+    callback
+  ) => {
+   
+      const query = `INSERT INTO PRODUCT_IMAGE (PRODUCT_SYS_ID,PRODUCT_IMAGE) VALUES (?,?)`;
+      connection.query(
+        query,
+        [
+          data,
+          image
+       
+        
+        ],
+        (err, results) => {
+          if (err) {
+            return callback(err, null);
+          }
+          callback(null, results);
+        }
+      );
+   
   },
   //VIEW
     viewproduct: (ITEM,PRODUCT_CATEGORY_SYS_ID,PRODUCT_SUB_CATEGORY_SYS_ID, callback) => {

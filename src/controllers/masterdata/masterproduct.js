@@ -7,7 +7,7 @@ exports.addProduct = (req, res) => {
     PRODUCT_SUB_CATEGORY_SYS_ID,
     PRODUCT_NAME,
     PRODUCT_DESCRIPTION,
-    PRODUCT_IMAGE,
+   
     CREATED_BY,
   } = req.body;
 
@@ -57,7 +57,7 @@ exports.addProduct = (req, res) => {
             PRODUCT_SUB_CATEGORY_SYS_ID,
             PRODUCT_NAME,
             PRODUCT_DESCRIPTION,
-            PRODUCT_IMAGE,
+           
             CREATED_BY,
             (err, results) => {
               if (err) {
@@ -67,11 +67,51 @@ exports.addProduct = (req, res) => {
                   .status(500)
                   .json({ message: "Internal server error" });
               }
-
+              const data =results.insertId;
+              const PRODUCT_IMAGES = req.files
+              ? req.files.map((file) => `/uploads/${file.filename}`)
+              : [];
+           
+          
+            
+              
+              const insertdetailes = PRODUCT_IMAGES.map((product)=>{
+                console.log(product,"product");
+                
+                return new Promise((resolve , reject)=>{
+                 
+                  productmodel.addimage(
+                        data,
+                        product,
+                        
+                         (err, results) => {
+                            if (err) {
+                                reject(err);
+                                console.log(err)
+                              } else {
+                                resolve(results);
+                              }
+            
+                  
+                       
+                      });
+                })
+            })
+            Promise.all(insertdetailes) .then(() => {
               res.status(200).json({
                 status: "True",
-                message: "Product added successfully",
+                message: "Product and image save successfully"
               });
+            })
+            .catch((error) => {
+              console.error("Error inserting product details:", error);
+              res.status(500).json({ message: "Failed to insert product details" });
+            });
+
+              // res.status(200).json({
+              //   status: "True",
+              //   message: "Product added successfully",
+              // });
             }
           );
         }
