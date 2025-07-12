@@ -60,7 +60,7 @@ const productmodel = {
     viewproduct: (ITEM,PRODUCT_CATEGORY_SYS_ID,PRODUCT_SUB_CATEGORY_SYS_ID, callback) => {
 
       if(ITEM=="VIEW_ALL"){
-          const query = `SELECT * FROM MASTER_PRODUCT_TABLE WHERE PRODUCT_CATEGORY_SYS_ID = ? AND PRODUCT_SUB_CATEGORY_SYS_ID = ?`;
+          const query = `SELECT * FROM MASTER_PRODUCT_TABLE AS PRODUCTID LEFT JOIN PRODUCT_IMAGE AS image  ON PRODUCTID.PRODUCT_SYS_ID = image.PRODUCT_SYS_ID WHERE PRODUCT_CATEGORY_SYS_ID = ? AND PRODUCT_SUB_CATEGORY_SYS_ID = ?`;
       connection.query(query,[PRODUCT_CATEGORY_SYS_ID,PRODUCT_SUB_CATEGORY_SYS_ID], (err, results) => {
           if (err) {
 console.log(err);
@@ -76,7 +76,7 @@ console.log(err);
     specificproduct: (ITEM,PRODUCT_SYS_ID, callback) => {
 
       if(ITEM=="SPECIFIC"){
-          const query = `SELECT * FROM MASTER_PRODUCT_TABLE WHERE PRODUCT_SYS_ID =?`;
+          const query = `SELECT * FROM MASTER_PRODUCT_TABLE AS PRODUCTID LEFT JOIN PRODUCT_IMAGE AS image  ON PRODUCTID.PRODUCT_SYS_ID = image.PRODUCT_SYS_ID WHERE PRODUCT_SYS_ID =?`;
       connection.query(query,[PRODUCT_SYS_ID], (err, results) => {
           if (err) {
 console.log(err);

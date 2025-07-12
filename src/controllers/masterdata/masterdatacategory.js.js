@@ -11,9 +11,16 @@ exports.addCategory = (req, res) => {
   if (ITEM != "ADD") {
     return res.status(200).json({ message: "Wrong input given for add" });
   }
+  const CATEGORY_IMAGE = req.file
+  ? `/uploads/${req.file.filename}`
+  : null;
 
-  CategoryModel.addCategory(ITEM, PRODUCT_CATEGORY, (err, results) => {
+
+
+  CategoryModel.addCategory(ITEM, PRODUCT_CATEGORY,CATEGORY_IMAGE, (err, results) => {
     if (err) {
+      console.log(err);
+      
       return res.status(500).json({ message: "Internal server error" });
     }
 
@@ -45,3 +52,7 @@ exports.viewcategory = (req, res) => {
     });
   });
 };
+
+
+
+

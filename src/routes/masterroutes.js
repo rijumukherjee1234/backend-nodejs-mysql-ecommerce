@@ -9,14 +9,16 @@ const upload = require("../middlewares/fileuploas.js");
 const router = express.Router();
 
 // Login route
-router.post('/api-post-add-master-category',verifyToken, CategoryModel.addCategory);
+router.post('/api-post-add-master-category',upload.single("CATEGORY_IMAGE"), CategoryModel.addCategory);
 router.get('/api-get-view-category',verifyToken, CategoryModel.viewcategory);
-router.post('/api-post-add-master-sub-category',verifyToken, subcategorymodel.subcategory);
+router.post('/api-post-add-master-sub-category',upload.single("SUB_CATEGORY_IMAGE"), subcategorymodel.subcategory);
 router.get('/api-get-view-sub-category',verifyToken, subcategorymodel.getsubcategory);
-router.post('/api-post-create-master-product',upload.array("COURSE_IMAGES", 5), masterproduct.addProduct);
-router.get('/api-get-view-master-product',verifyToken,  masterproduct.viewproduct);
+router.post('/api-post-create-master-product',upload.array("COURSE_IMAGES", 25), masterproduct.addProduct);
+router.get('/api-get-view-master-product',  masterproduct.viewproduct);
 router.get('/api-get-view-specific-master-product',verifyToken, masterproduct.specificproduct);
-router.post('/api-post-product-stock-entry',verifyToken, stockproduct.addstock);
+router.post('/api-post-product-stock-entry', stockproduct.addstock);
 router.post('/api-post-update-product-stock-entry',verifyToken, stockproduct.updatestock);
+router.get('/api-get-view-stock-entry', stockproduct.viewstockdetailes);
+router.post('/api-post-approve-stock-entry', stockproduct.approvestock);
 
 module.exports = router;

@@ -2,10 +2,10 @@ const connection = require("../../config/db");
 
 const CategoryModel = {
   // Add category
-  addCategory: (ITEM, PRODUCT_CATEGORY, callback) => {
+  addCategory: (ITEM, PRODUCT_CATEGORY,CATEGORY_IMAGE, callback) => {
     if (ITEM == "ADD") {
-      const query = `INSERT INTO PRODUCT_CATEGORY (PRODUCT_CATEGORY) VALUES (?)`;
-      connection.query(query, [PRODUCT_CATEGORY], (err, results) => {
+      const query = `INSERT INTO PRODUCT_CATEGORY (PRODUCT_CATEGORY,PRODUCT_CATEGORY_IMAGE) VALUES (?,?)`;
+      connection.query(query, [PRODUCT_CATEGORY,CATEGORY_IMAGE], (err, results) => {
         if (err) {
           return callback(err, null);
         }

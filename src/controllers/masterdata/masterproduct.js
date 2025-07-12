@@ -138,10 +138,25 @@ exports.addProduct = (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
       }
 
+const returndata =results.map((data)=>
+  ({
+
+PRODUCT_SYS_ID:data.PRODUCT_SYS_ID,
+PRODUCT_CATEGORY_SYS_ID:data.PRODUCT_CATEGORY_SYS_ID,
+PRODUCT_DESCRIPTION:data.PRODUCT_DESCRIPTION,
+PRODUCT_IMAGE_DETAILES:{
+  PRODUCT_IMAGE_SYS_ID:data.PRODUCT_IMAGE_SYS_ID,
+  PRODUCT_IMAGE:data.PRODUCT_IMAGE
+}
+
+
+})
+)
+
       if (results.length > 0) {
         res.status(200).json({
           status: "True",
-          response: results,
+          response: returndata,
         });
       } else {
         res.status(200).json({

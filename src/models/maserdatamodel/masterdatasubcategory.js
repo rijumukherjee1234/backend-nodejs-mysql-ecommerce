@@ -6,13 +6,14 @@ const subcategorymodel = {
     ITEM,
     PRODUCT_CATEGORY_SYS_ID,
     SUB_CATEGORY_NAME,
+    SUB_CATEGORY_IMAGE,
     callback
   ) => {
     if (ITEM == "ADD") {
-      const query = `INSERT INTO PRODUCT_SUBCATEGORY (PRODUCT_CATEGORY_SYS_ID,SUBCATEGORY_NAME) VALUES (?,?)`;
+      const query = `INSERT INTO PRODUCT_SUBCATEGORY (PRODUCT_CATEGORY_SYS_ID,SUBCATEGORY_NAME,SUB_CATEGORY_IMAGE) VALUES (?,?,?)`;
       connection.query(
         query,
-        [PRODUCT_CATEGORY_SYS_ID, SUB_CATEGORY_NAME],
+        [PRODUCT_CATEGORY_SYS_ID, SUB_CATEGORY_NAME,SUB_CATEGORY_IMAGE],
         (err, results) => {
           if (err) {
             console.error("Error in addCity model:", err);
@@ -24,7 +25,7 @@ const subcategorymodel = {
     }
     // const query = `INSERT INTO PRODUCT_CATEGORY (PRODUCT_CATEGORY) VALUES (?)`;
   },
-  
+
   //sample json
   //{
 //     "ITEM":"ADD",

@@ -13,6 +13,11 @@ exports.subcategory = (req, res) => {
   if (ITEM != "ADD" || !PRODUCT_CATEGORY_SYS_ID) {
     return res.status(200).json({ message: "Wrong input given for add" });
   }
+
+  const SUB_CATEGORY_IMAGE = req.file
+  ? `/uploads/${req.file.filename}`
+  : null;
+
   subcategorymodel.findcategorysysid(
     PRODUCT_CATEGORY_SYS_ID,
     (err, results) => {
@@ -26,6 +31,7 @@ exports.subcategory = (req, res) => {
         ITEM,
         PRODUCT_CATEGORY_SYS_ID,
         SUB_CATEGORY_NAME,
+        SUB_CATEGORY_IMAGE,
         (err, results) => {
           if (err) {
             return res.status(500).json({ message: "Internal server error" });
